@@ -1,0 +1,33 @@
+{
+  "name": "alumni",
+  "version": "1.0.0",
+  "description": "Alumni Server For the Alumni Web App",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Muhammed-Burhan/Alumni.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Muhammed-Burhan/Alumni/issues"
+  },
+  "homepage": "https://github.com/Muhammed-Burhan/Alumni#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  },
+  "dependencies": {
+    "dotenv": "^16.0.0",
+    "express": "^4.17.3",
+    "express-async-errors": "^3.1.1",
+    "http-status-codes": "^2.2.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.2.10",
+    "nodemailer": "^6.7.3",
+    "otp-generator": "^4.0.0"
+  }
+}
