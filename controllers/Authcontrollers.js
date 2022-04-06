@@ -1,7 +1,13 @@
+//Packages
 const jwt = require("jsonwebtoken");
 const otpGenerator = require("otp-generator");
 const nodemailer = require("nodemailer");
 const crypto = require("crypto");
+
+//Error Handling
+const { BadRequestError, UnauthenticatedError } = require("../errors/index");
+
+//Nodemailer
 let transporter = nodemailer.createTransport({
   host: "smtp.gmail.com",
   port: 465,
@@ -14,9 +20,13 @@ let transporter = nodemailer.createTransport({
   },
 });
 var emailV;
+
+//Controllers for Authentication
 const login = async (req, res) => {
   const { email } = req.body;
-
+  if (!email) {
+    throw new BadRequestError("You must enter email address");
+  }
   if (/@student.su.edu.krd\s*$/.test(email)) {
     const user = email.split("@")[0];
     emailV = email;
@@ -27,7 +37,7 @@ const login = async (req, res) => {
       specialChars: false,
     });
     console.log(otpCode);
-    //time for otp expiration
+    //expiration for otp ( 5 min )
     const ttl = 5 * 60 * 1000;
     const expire = Date.now() + ttl;
     const data = `${email}.${otpCode}.${expire}`;
@@ -41,7 +51,7 @@ const login = async (req, res) => {
         from: `Alumni <${process.env.GMAIL_ADD}>`,
         to: `${email}`,
         subject: "Email Verification",
-        html: `<h2>Your OTP code is ${otpCode}</h2>`,
+        html: `<h3>Your OTP code is ${otpCode}</h3>`,
       },
       (err) => {
         if (err) {
@@ -51,35 +61,38 @@ const login = async (req, res) => {
         }
       }
     );
-
-    ////////
     return res.status(200).json({
       msg: "Enter the otp to verifiy you'r email",
       useHashCode: `${fullHash}`,
     });
   }
-  return res.status(400).json({ msg: "not authorized" });
+
+  throw new UnauthenticatedError("Not Supported");
 };
 
 const verify = async (req, res) => {
   const { code, userHashCode } = req.body;
   const [hashValue, expire] = userHashCode.split(".");
   const newData = `${emailV}.${code}.${expire}`;
+  if ((!code, userHashCode)) {
+    throw new BadRequestError("you must provide otp code ");
+  }
   const calculatedHash = crypto
     .createHmac("sha256", process.env.HASH_KY)
     .update(newData)
     .digest("hex");
 
   if (Date.now() > parseInt(expire)) {
-    return res.status(400).json({ msg: "otp expired" });
+    throw new BadRequestError("OTP Expired");
   } else {
     if (hashValue === calculatedHash) {
+      //we create token for the user
       const token = jwt.sign({ useremail: emailV }, process.env.JWT_SECRET, {
         expiresIn: "30d",
       });
       return res.status(200).json({ msg: "succes", token });
     } else {
-      return res.status(200).json({ msg: `failed` });
+      throw new BadRequestError("OTP Invalid");
     }
   }
 };
