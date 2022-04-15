@@ -15,7 +15,7 @@ const alumniSchema = new mongoos.Schema({
     type: String,
     required: [true, "College email Email is required"],
     match: [
-      /^[a-zA-Z0-9_.+-]+@(?:(?:[a-zA-Z0-9-]+\.)?[a-zA-Z]+\.)?(student.su.edu.krd|domain2)/,
+      /^[a-zA-Z0-9_.+-]+@(?:(?:[a-zA-Z0-9-]+\.)?[a-zA-Z]+\.)?(student.su.edu.krd)/,
       "pleae enter college domain",
     ],
   },
@@ -23,16 +23,16 @@ const alumniSchema = new mongoos.Schema({
     type: Number,
     required: [true, "Phone number required"],
     // max: [14, "Phone number cannot be more than 14 digits "],
-    match: [
-      /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{4}[-\s\.]?[0-9]{4,7}$/,
-      "Wrong phone number",
-    ],
+    // match: [
+    //   /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{4}[-\s\.]?[0-9]{4,7}$/,
+    //   "Wrong phone number",
+    // ],
   },
   address: { type: String },
   gender: {
     type: String,
     enum: {
-      values: ["male", "fmale"],
+      values: ["male", "female", "Male", "Female"],
       message: "${VALUE} is not vailed",
     },
   },
@@ -42,11 +42,13 @@ const alumniSchema = new mongoos.Schema({
       values: ["employed", "unemployed"],
       message: "${VALUE} is not vailed",
     },
+    default: "unemployed",
   },
   years_of_work: { type: Number, default: 0 },
   gradute_year: {
     type: Number,
-    required: [true, "Gradution Year is required"],
+    default: 2022,
+    // required: [true, "Gradution Year is required"],
   },
   cv: { type: String, default: "Null" },
   photo: {

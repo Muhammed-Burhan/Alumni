@@ -74,8 +74,8 @@ const verify = async (req, res) => {
   const { code, userHashCode } = req.body;
   const [hashValue, expire] = userHashCode.split(".");
   const newData = `${emailV}.${code}.${expire}`;
-  if ((!code, userHashCode)) {
-    throw new BadRequestError("you must provide otp code ");
+  if (!code || !userHashCode) {
+    throw new BadRequestError("you must provide credintails code ");
   }
   const calculatedHash = crypto
     .createHmac("sha256", process.env.HASH_KY)
