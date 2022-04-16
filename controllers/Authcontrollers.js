@@ -1,5 +1,7 @@
 //Packages
 const jwt = require("jsonwebtoken");
+const hbs = require("nodemailer-express-handlebars");
+const path = require("path");
 const otpGenerator = require("otp-generator");
 const nodemailer = require("nodemailer");
 const crypto = require("crypto");
@@ -19,6 +21,20 @@ let transporter = nodemailer.createTransport({
     pass: process.env.GMAIL_PASS,
   },
 });
+//handlebars options
+const handlebarOptions = {
+  viewEngine: {
+    extName: ".handlebars",
+    partialsDir: path.resolve("./views"),
+    defaultLayout: false,
+  },
+  viewPath: path.resolve("./views"),
+  extName: ".handlebars",
+};
+
+//Attaching handlebars to nodemailer
+transporter.use("compile", hbs(handlebarOptions));
+
 var emailV;
 
 //Controllers for Authentication
@@ -51,7 +67,11 @@ const login = async (req, res) => {
         from: `Alumni <${process.env.GMAIL_ADD}>`,
         to: `${email}`,
         subject: "Email Verification",
-        html: `<h3>Your OTP code is ${otpCode}</h3>`,
+        template: "email",
+        context: {
+          email: user,
+          otp: otpCode,
+        },
       },
       (err) => {
         if (err) {
