@@ -13,6 +13,8 @@ const {
   updateAlumni,
   deleteAlumni,
 } = require("../controllers/AlumniControllers");
+//Blog Controllers
+const { getBlogs, createBlog } = require("../controllers/BlogController");
 //Auth routes
 router.route("/login").post(login);
 router.route("/verify").post(verify);
@@ -27,4 +29,6 @@ router
   .get(authnticationMiddleware, getAlumni)
   .patch(authnticationMiddleware, updateAlumni)
   .delete(authnticationMiddleware, deleteAlumni);
+
+router.route("/blog").get(getBlogs).post(createBlog);
 module.exports = router;

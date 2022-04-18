@@ -22,11 +22,11 @@ const alumniSchema = new mongoos.Schema({
   phone_no: {
     type: Number,
     required: [true, "Phone number required"],
-    // max: [14, "Phone number cannot be more than 14 digits "],
-    // match: [
-    //   /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{4}[-\s\.]?[0-9]{4,7}$/,
-    //   "Wrong phone number",
-    // ],
+    max: [14, "Phone number cannot be more than 14 digits "],
+    match: [
+      /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{4}[-\s\.]?[0-9]{4,7}$/,
+      "Wrong phone number",
+    ],
   },
   address: { type: String },
   gender: {
@@ -48,7 +48,7 @@ const alumniSchema = new mongoos.Schema({
   gradute_year: {
     type: Number,
     default: 2022,
-    // required: [true, "Gradution Year is required"],
+    required: [true, "Gradution Year is required"],
   },
   cv: { type: String, default: "Null" },
   photo: {
