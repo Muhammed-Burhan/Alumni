@@ -15,9 +15,14 @@ const {
 } = require("../controllers/AlumniControllers");
 //Blog Controllers
 const { getBlogs, createBlog } = require("../controllers/BlogController");
+//News Controller
+const { getNews, createNews } = require("../controllers/NewsController");
 //Auth routes
 router.route("/login").post(login);
 router.route("/verify").post(verify);
+
+//News route
+router.route("/news").get(getNews).post(createNews);
 
 //Alumni routes
 router

@@ -20,11 +20,12 @@ const alumniSchema = new mongoos.Schema({
     ],
   },
   phone_no: {
-    type: Number,
+    type: String,
     required: [true, "Phone number required"],
-    max: [14, "Phone number cannot be more than 14 digits "],
+    miniLength: [7, "Phone number cannot be less than 7 digits"],
+    maxLength: [14, "Phone number cannot be more than 14 digits "],
     match: [
-      /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{4}[-\s\.]?[0-9]{4,7}$/,
+      /^[\+]?[(]?[0-9]{3,4}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,7}$/,
       "Wrong phone number",
     ],
   },
