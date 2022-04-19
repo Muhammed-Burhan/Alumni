@@ -8,7 +8,7 @@ const eventSchema = new mongoos.Schema({
   },
   description: {
     type: String,
-    required: [true, "Description required for the news"],
+    required: [true, "Description required for the Event"],
     maxlength: [450, "the description is to long"],
   },
   presenter_id: mongoos.Types.ObjectId,

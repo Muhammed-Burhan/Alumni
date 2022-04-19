@@ -5,6 +5,8 @@ const router = express.Router();
 const authnticationMiddleware = require("../middleware/auth");
 
 //controlles
+
+//Authentication
 const { login, verify } = require("../controllers/Authcontrollers");
 const {
   getAlumni,
@@ -13,10 +15,18 @@ const {
   updateAlumni,
   deleteAlumni,
 } = require("../controllers/AlumniControllers");
+
 //Blog Controllers
 const { getBlogs, createBlog } = require("../controllers/BlogController");
+<<<<<<< HEAD
 //News Controller
 const { getNews, createNews } = require("../controllers/NewsController");
+=======
+
+//Event Controllers
+const { createEvent, getEvents } = require("../controllers/EventController");
+
+>>>>>>> 3c7b3ce2ebc4f229ad4e5e67f3f04770f0972604
 //Auth routes
 router.route("/login").post(login);
 router.route("/verify").post(verify);
@@ -35,5 +45,9 @@ router
   .patch(authnticationMiddleware, updateAlumni)
   .delete(authnticationMiddleware, deleteAlumni);
 
+//Blog route
 router.route("/blog").get(getBlogs).post(createBlog);
 module.exports = router;
+
+//Event route
+router.route("/event").get(getEvents).post(createEvent);
