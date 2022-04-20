@@ -17,7 +17,11 @@ const {
 } = require("../controllers/AlumniControllers");
 
 //Blog Controllers
-const { getBlogs, createBlog } = require("../controllers/BlogController");
+const {
+  getBlogs,
+  createBlog,
+  getBlog,
+} = require("../controllers/BlogController");
 
 //News Controller
 const { getNews, createNews } = require("../controllers/NewsController");
@@ -51,7 +55,7 @@ router
 
 //Blog route
 router.route("/blog").get(getBlogs).post(createBlog);
-module.exports = router;
+router.route("/blog/:id").get(getBlog);
 
 //Event route
 router.route("/event").get(getEvents).post(createEvent);
@@ -61,3 +65,5 @@ router
   .route("/community")
   .get(authnticationMiddleware, getCommunities)
   .post(authnticationMiddleware, createCommunity);
+
+module.exports = router;
