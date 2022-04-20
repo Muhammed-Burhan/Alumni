@@ -18,24 +18,19 @@ const {
 
 //Blog Controllers
 const { getBlogs, createBlog } = require("../controllers/BlogController");
-<<<<<<< HEAD
+
 //News Controller
 const { getNews, createNews } = require("../controllers/NewsController");
-=======
 
 //Event Controllers
 const { createEvent, getEvents } = require("../controllers/EventController");
 
-<<<<<<< HEAD
 //Community Controllers
 const {
   createCommunity,
   getCommunities,
 } = require("../controllers/CommunityController");
 
-=======
->>>>>>> 3c7b3ce2ebc4f229ad4e5e67f3f04770f0972604
->>>>>>> 3b43a9a4c289634b7e0992b607a7287436f6b523
 //Auth routes
 router.route("/login").post(login);
 router.route("/verify").post(verify);
@@ -62,4 +57,7 @@ module.exports = router;
 router.route("/event").get(getEvents).post(createEvent);
 
 //Community route
-router.route("/community").get(getCommunities).post(createCommunity);
+router
+  .route("/community")
+  .get(authnticationMiddleware, getCommunities)
+  .post(authnticationMiddleware, createCommunity);
