@@ -2,8 +2,8 @@ const { StatusCodes } = require("http-status-codes");
 const News = require("../model/news");
 
 const getNews = async (req, res) => {
-  const blog = await News.find({}).sort("createdAt");
-  res.status(StatusCodes.OK).json({ blog });
+  const news = await News.find({}).sort("createdAt");
+  res.status(StatusCodes.OK).json({ news });
 };
 
 const getNew = async (req, res) => {
