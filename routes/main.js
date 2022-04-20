@@ -18,15 +18,13 @@ const {
 
 //Blog Controllers
 const { getBlogs, createBlog } = require("../controllers/BlogController");
-<<<<<<< HEAD
+
 //News Controller
 const { getNews, createNews } = require("../controllers/NewsController");
-=======
 
 //Event Controllers
 const { createEvent, getEvents } = require("../controllers/EventController");
 
->>>>>>> 3c7b3ce2ebc4f229ad4e5e67f3f04770f0972604
 //Auth routes
 router.route("/login").post(login);
 router.route("/verify").post(verify);
