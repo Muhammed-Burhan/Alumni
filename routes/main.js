@@ -25,6 +25,12 @@ const { getNews, createNews } = require("../controllers/NewsController");
 //Event Controllers
 const { createEvent, getEvents } = require("../controllers/EventController");
 
+//Community Controllers
+const {
+  createCommunity,
+  getCommunities,
+} = require("../controllers/CommunityController");
+
 //Auth routes
 router.route("/login").post(login);
 router.route("/verify").post(verify);
@@ -49,3 +55,9 @@ module.exports = router;
 
 //Event route
 router.route("/event").get(getEvents).post(createEvent);
+
+//Community route
+router
+  .route("/community")
+  .get(authnticationMiddleware, getCommunities)
+  .post(authnticationMiddleware, createCommunity);

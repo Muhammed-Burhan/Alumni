@@ -43,7 +43,7 @@ const login = async (req, res) => {
   if (!email) {
     throw new BadRequestError("You must enter email address");
   }
-  if (/@student.su.edu.krd\s*$/.test(email)) {
+  if (/@student.su.edu.krd|@su.edu.krd\s*$/.test(email)) {
     const user = email.split("@")[0];
     emailV = email;
     ///email sending
