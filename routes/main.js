@@ -24,10 +24,18 @@ const {
 } = require("../controllers/BlogController");
 
 //News Controller
-const { getNews, createNews } = require("../controllers/NewsController");
+const {
+  getNews,
+  createNews,
+  getNew,
+} = require("../controllers/NewsController");
 
 //Event Controllers
-const { createEvent, getEvents } = require("../controllers/EventController");
+const {
+  createEvent,
+  getEvents,
+  getEvent,
+} = require("../controllers/EventController");
 
 //Community Controllers
 const {
@@ -41,7 +49,7 @@ router.route("/verify").post(verify);
 
 //News route
 router.route("/news").get(getNews).post(createNews);
-
+router.route("/news/:id").get(getNew);
 //Alumni routes
 router
   .route("/alumnis")
@@ -59,7 +67,7 @@ router.route("/blog/:id").get(getBlog);
 
 //Event route
 router.route("/event").get(getEvents).post(createEvent);
-
+router.route("/event/:id").get(getEvent);
 //Community route
 router
   .route("/community")
