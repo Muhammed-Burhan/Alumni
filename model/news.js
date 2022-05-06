@@ -5,7 +5,7 @@ const newsSchema = new mongoos.Schema({
   description: {
     type: String,
     required: [true, "Description required for the news"],
-    maxlength: [350, "the description is to long"],
+    maxlength: [1000, "the description is to long"],
   },
   author_id: mongoos.Types.ObjectId,
   author: { type: String, required: [true, "the author name is required"] },
